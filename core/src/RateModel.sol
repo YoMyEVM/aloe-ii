@@ -19,8 +19,9 @@ interface IRateModel {
 /// @title RateModel
 /// @author Aloe Labs, Inc.
 /// @dev "Test everything; hold fast what is good." - 1 Thessalonians 5:21
+
 contract RateModel is IRateModel {
-    uint256 private constant _A = 6.1010463348e20;
+    uint256 private constant _A = 2.44041853392e21;
 
     uint256 private constant _B = _A / 1e18;
 

@@ -101,12 +101,12 @@ contract Ledger {
 
     /// @notice The name of the banknote.
     function name() external view returns (string memory) {
-        return string.concat("Aloe ", asset().symbol(), "-[", Ledger(peer()).asset().symbol(), "]");
+        return string.concat("Pro ", asset().symbol(), "-[", Ledger(peer()).asset().symbol(), "]");
     }
 
     /// @notice The symbol of the banknote.
     function symbol() external view returns (string memory) {
-        return string.concat(asset().symbol(), "+");
+        return string.concat("Pro", asset().symbol());
     }
 
     /// @notice The number of decimals the banknote uses. Matches the underlying token.

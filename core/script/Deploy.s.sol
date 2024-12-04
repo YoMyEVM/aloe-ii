@@ -8,8 +8,8 @@ import {Lender} from "src/Lender.sol";
 import {RateModel} from "src/RateModel.sol";
 import {VolatilityOracle} from "src/VolatilityOracle.sol";
 
-address constant GOVERNOR = 0xe879C1dc15df1D243e50A2871cdA719089710092;
-address constant RESERVE = 0xD16A75aD9a0ac4f45a76a69ba6A4dfC073907659;
+address constant GOVERNOR = 0x23b55E2E37A035578a3cE2122b81aAd1714ebaEf;
+address constant RESERVE = 0x23b55E2E37A035578a3cE2122b81aAd1714ebaEf;
 
 contract DeployScript is Script {
     function run() external {
