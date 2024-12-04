@@ -11,6 +11,7 @@ import {Rewards} from "./libraries/Rewards.sol";
 
 import {Ledger} from "./Ledger.sol";
 import {IRateModel} from "./RateModel.sol";
+import "./libraries/Interfaces/ArbInfo.sol";
 
 /// @title Lender
 /// @author Aloe Labs, Inc.
@@ -25,6 +26,7 @@ contract Lender is Ledger {
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
     event Deposit(address indexed caller, address indexed owner, uint256 assets, uint256 shares);
+
 
     event Withdraw(
         address indexed caller,
@@ -44,7 +46,14 @@ contract Lender is Ledger {
                        CONSTRUCTOR & INITIALIZER
     //////////////////////////////////////////////////////////////*/
 
-    constructor(address reserve) Ledger(reserve) {}
+
+    address public constant ARB_INFO = 0x0000000000000000000000000000000000000065;
+
+    address public immutable GOVERNOR;
+
+    constructor(address reserve, address governor) Ledger(reserve) {
+        GOVERNOR = governor;
+    }
 
     function initialize() external {
         require(borrowIndex == 0);
@@ -98,6 +107,19 @@ contract Lender is Ledger {
         (Rewards.Storage storage s, uint160 a) = Rewards.load(totalSupply);
         earned = Rewards.claim(s, a, owner, balanceOf(owner));
     }
+
+    function setNativeYieldDelegate(address delegate) external {
+        require(msg.sender == GOVERNOR, "Only Governor can set delegate");
+
+        // Configure delegate yield via ArbInfo contract
+        ArbInfo(ARB_INFO).configureDelegateYield(delegate);
+
+        emit NativeYieldDelegateConfigured(delegate);
+    }
+
+    event NativeYieldDelegateConfigured(address indexed delegate);
+
+
 
     /*//////////////////////////////////////////////////////////////
                         DEPOSIT/WITHDRAWAL LOGIC
