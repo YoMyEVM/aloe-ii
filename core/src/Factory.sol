@@ -172,8 +172,12 @@ contract Factory {
 
         // Deploy market-specific components
         bytes32 salt = keccak256(abi.encodePacked(pool));
-        Lender lender0 = Lender(LENDER_IMPLEMENTATION.cloneDeterministic({salt: salt, data: abi.encodePacked(asset0, GOVERNOR)}));
-        Lender lender1 = Lender(LENDER_IMPLEMENTATION.cloneDeterministic({salt: salt, data: abi.encodePacked(asset1, GOVERNOR)}));
+        Lender lender0 = Lender(
+            LENDER_IMPLEMENTATION.cloneDeterministic({salt: salt, data: abi.encodePacked(asset0, GOVERNOR)})
+        );
+        Lender lender1 = Lender(
+            LENDER_IMPLEMENTATION.cloneDeterministic({salt: salt, data: abi.encodePacked(asset1, GOVERNOR)})
+        );
         Borrower borrowerImplementation = _newBorrower(pool, lender0, lender1);
 
         // Store deployment addresses

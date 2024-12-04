@@ -1,6 +1,6 @@
 /**
  *Submitted for verification at apescan.io on 2024-11-20
-*/
+ */
 
 // Copyright 2021-2022, Offchain Labs, Inc.
 // For license information, see https://github.com/OffchainLabs/nitro-contracts/blob/main/LICENSE

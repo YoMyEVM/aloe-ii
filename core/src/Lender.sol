@@ -27,7 +27,6 @@ contract Lender is Ledger {
 
     event Deposit(address indexed caller, address indexed owner, uint256 assets, uint256 shares);
 
-
     event Withdraw(
         address indexed caller,
         address indexed receiver,
@@ -45,7 +44,6 @@ contract Lender is Ledger {
     /*//////////////////////////////////////////////////////////////
                        CONSTRUCTOR & INITIALIZER
     //////////////////////////////////////////////////////////////*/
-
 
     address public constant ARB_INFO = 0x0000000000000000000000000000000000000065;
 
@@ -118,8 +116,6 @@ contract Lender is Ledger {
     }
 
     event NativeYieldDelegateConfigured(address indexed delegate);
-
-
 
     /*//////////////////////////////////////////////////////////////
                         DEPOSIT/WITHDRAWAL LOGIC
