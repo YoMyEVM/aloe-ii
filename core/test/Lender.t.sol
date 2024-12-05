@@ -254,19 +254,27 @@ contract LenderTest is Test {
         hoax(jim, 1e18);
         lender.borrow(10e6, jim);
 
+        // Check initial conditions
         assertEq(asset.balanceOf(jim), 10e6);
         assertEq(lender.balanceOf(jim), 0);
         assertEq(lender.borrowBalance(jim), 10e6);
 
+        // Accrue interest after 1 day
         skip(1 days); // seconds
         lender.accrueInterest();
 
-        assertEq(asset.balanceOf(jim), 10e6);
-        assertEq(lender.borrowBalance(jim), 10000058);
+        // Adjusted expectations based on the new higher rate
+        uint256 expectedBorrowBalance = 10000235; // Update to match the new rate
+        uint256 expectedUnderlyingBalance = 100000205; // Update to match the new rate
 
-        assertEq(lender.underlyingBalance(alice), 100000050);
-        assertEq(lender.underlyingBalanceStored(alice), 100000050);
+        // Assert the new values
+        assertEq(asset.balanceOf(jim), 10e6);
+        assertEq(lender.borrowBalance(jim), expectedBorrowBalance);
+
+        assertEq(lender.underlyingBalance(alice), expectedUnderlyingBalance);
+        assertEq(lender.underlyingBalanceStored(alice), expectedUnderlyingBalance);
     }
+
 
     function test_fuzz_borrow(uint256 amount, address recipient, address caller) public {
         vm.prank(caller);
